@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IKH Villas — Ibiza & Formentera</title>
+  <meta name="description" content="Luxury villa rentals in Ibiza and Formentera. Private, tailored, 24/7." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300&family=Space+Mono:ital@0;1&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --paper:      #E8E2D6;
+      --paper-deep: #DDD6C8;
+      --ink:        #1A1A18;
+      --ink-soft:   #6A6660;
+      --line:       rgba(26,26,24,0.14);
+      --aegean:     #184E77;
+      --ease:       cubic-bezier(0.22, 1, 0.36, 1);
+      --fd: 'Fraunces', Georgia, serif;
+      --fm: 'Space Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--fm);
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── REVEALS ────────────────────────────────────────── */
+    .r { opacity: 0; transform: translateY(16px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+    .r.on { opacity: 1; transform: none; }
+    .rd1 { transition-delay: 100ms; }
+    .rd2 { transition-delay: 200ms; }
+    .rd3 { transition-delay: 320ms; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    }
+
+    /* ── NAV ────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 200;
+      padding: 1.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s ease, border-bottom 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(232,226,214,0.93);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-logo {
+      font-family: var(--fd);
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+    }
+    .nav-logo em { font-style: italic; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--fm);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      font-family: var(--fm);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.55rem 1.25rem;
+      border: 1px solid var(--ink);
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--ink); color: var(--paper); }
+
+    /* ── HERO ───────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      height: 100svh;
+      min-height: 640px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      /* REPLACE: IKH best property aerial shot */
+      background: url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1800&q=85') center 40%/cover no-repeat;
+      transform: scale(1.04);
+      animation: zoom 18s ease-out forwards;
+    }
+    @keyframes zoom { to { transform: scale(1); } }
+    .hero-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        175deg,
+        rgba(232,226,214,0) 20%,
+        rgba(26,26,24,0.55) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 0 3rem 5rem;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: flex-end;
+      gap: 3rem;
+    }
+    .hero-left {}
+    .hero-tag {
+      font-family: var(--fm);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(232,226,214,0.6);
+      margin-bottom: 1.5rem;
+    }
+    .hero-hl {
+      font-family: var(--fd);
+      font-size: clamp(4rem, 9vw, 8rem);
+      font-weight: 200;
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      color: var(--paper);
+    }
+    .hero-hl em { font-style: italic; }
+    .hero-hl .line2 { display: block; padding-left: 3rem; }
+    .hero-hl .line3 { display: block; padding-left: 6rem; }
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: flex-end;
+    }
+    .hero-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: flex-end;
+    }
+    .hero-stat-num {
+      font-family: var(--fd);
+      font-size: 2.2rem;
+      font-weight: 200;
+      color: var(--paper);
+      line-height: 1;
+      text-align: right;
+    }
+    .hero-stat-label {
+      font-family: var(--fm);
+      font-size: 0.55rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(232,226,214,0.5);
+      text-align: right;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      font-family: var(--fm);
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(232,226,214,0.45);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-scroll::after {
+      content: '';
+      width: 1px;
+      height: 48px;
+      background: rgba(232,226,214,0.35);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:0.3;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(0.6)} }
+
+    /* ── INTRO ──────────────────────────────────────────── */
+    .intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--line);
+    }
+    .intro-left {
+      padding: 5rem 3rem;
+      border-right: 1px solid var(--line);
+    }
+    .intro-lbl {
+      font-family: var(--fm);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 2rem;
+    }
+    .intro-hl {
+      font-family: var(--fd);
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      font-weight: 200;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+    }
+    .intro-hl em { font-style: italic; }
+    .intro-right {
+      padding: 5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .intro-body {
+      font-family: var(--fm);
+      font-size: 0.68rem;
+      line-height: 1.95;
+      color: var(--ink-soft);
+      max-width: 380px;
+      margin-bottom: 3rem;
+    }
+    .intro-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--line);
+    }
+    .intro-stat {
+      padding: 1.5rem 0;
+      border-right: 1px solid var(--line);
+    }
+    .intro-stat:last-child { border-right: none; padding-left: 1.5rem; }
+    .intro-stat:nth-child(2) { padding-left: 1.5rem; }
+    .intro-stat-n {
+      font-family: var(--fd);
+      font-size: 2.2rem;
+      font-weight: 200;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .intro-stat-l {
+      font-family: var(--fm);
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    /* ── VILLA SECTION ──────────────────────────────────── */
+    .villas {
+      border-bottom: 1px solid var(--line);
+    }
+    .villas-top {
+      padding: 3rem 3rem 0;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .villas-hl {
+      font-family: var(--fd);
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 200;
+      letter-spacing: -0.02em;
+      padding-bottom: 2rem;
+    }
+    .villas-hl em { font-style: italic; }
+
+    /* Tabs */
+    .villa-tabs {
+      display: flex;
+      gap: 0;
+      list-style: none;
+      align-self: flex-end;
+    }
+    .villa-tab {
+      font-family: var(--fm);
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .villa-tab:hover { color: var(--ink); }
+    .villa-tab.active {
+      color: var(--ink);
+      border-bottom-color: var(--ink);
+    }
+
+    /* Carousel wrapper */
+    .carousel-outer {
+      position: relative;
+      padding: 3rem 3rem;
+    }
+    .carousel-track-wrap {
+      overflow: hidden;
+    }
+    .carousel-track {
+      display: flex;
+      gap: 1.5rem;
+      transition: transform 0.6s var(--ease);
+    }
+
+    /* Villa card */
+    .vcard {
+      flex: 0 0 calc(33.333% - 1rem);
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: transform 0.4s var(--ease), box-shadow 0.4s ease;
+      background: var(--paper);
+    }
+    .vcard:hover {
+      transform: scale(1.025);
+      box-shadow: 0 12px 40px rgba(26,26,24,0.12);
+      z-index: 2;
+    }
+    .vcard-img {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      position: relative;
+    }
+    .vcard-img img {
+      transition: transform 0.6s var(--ease);
+    }
+    .vcard:hover .vcard-img img { transform: scale(1.05); }
+    .vcard-tag {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      font-family: var(--fm);
+      font-size: 0.55rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: var(--paper);
+      color: var(--aegean);
+      padding: 0.3rem 0.7rem;
+    }
+    .vcard-body {
+      padding: 1.25rem 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .vcard-loc {
+      font-family: var(--fm);
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .vcard-name {
+      font-family: var(--fd);
+      font-size: 1.4rem;
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+    }
+    .vcard-name em { font-style: italic; font-weight: 200; }
+    .vcard-detail {
+      font-family: var(--fm);
+      font-size: 0.6rem;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      margin-top: 0.25rem;
+      flex: 1;
+    }
+    .vcard-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--line);
+    }
+    .vcard-price {
+      font-family: var(--fd);
+      font-size: 1.2rem;
+      font-weight: 200;
+    }
+    .vcard-price span {
+      font-family: var(--fm);
+      font-size: 0.55rem;
+      color: var(--ink-soft);
+      letter-spacing: 0.08em;
+    }
+    .vcard-book {
+      font-family: var(--fm);
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--paper);
+      background: var(--ink);
+      padding: 0.5rem 1rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .vcard-book:hover { background: var(--aegean); }
+
+    /* Carousel arrows */
+    .carousel-arrows {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 2rem;
+      justify-content: flex-end;
+    }
+    .c-arrow {
+      width: 44px; height: 44px;
+      border: 1px solid var(--line);
+      background: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--ink);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .c-arrow:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .c-arrow:disabled { opacity: 0.25; cursor: default; }
+    .c-arrow:disabled:hover { background: none; color: var(--ink); border-color: var(--line); }
+
+    /* Panel visibility */
+    .villa-panel { display: none; }
+    .villa-panel.active { display: block; }
+
+    /* ── GHOST DESTINATIONS ─────────────────────────────── */
+    .ghost {
+      position: relative;
+      height: 100vh;
+      min-height: 580px;
+      overflow: hidden;
+      display: flex;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .ghost-bg {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+    }
+    .ghost-bg.on { opacity: 1; }
+    /* REPLACE: IKH destination images */
+    .gb1 { background: url('https://images.unsplash.com/photo-1600518464441-9154a4dea21b?w=1600&q=80') center/cover; }
+    .gb2 { background: url('https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=1600&q=80') center/cover; }
+    .gb3 { background: url('https://images.unsplash.com/photo-1533105135-6f88d01b6d3d?w=1600&q=80') center/cover; }
+    .ghost-scrim {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(90deg, rgba(232,226,214,0.9) 0%, rgba(232,226,214,0.3) 55%, transparent 100%);
+      transition: background 0.5s ease;
+    }
+    .ghost.idle .ghost-scrim { background: var(--paper); }
+    .ghost-inner {
+      position: relative;
+      z-index: 2;
+      padding: 0 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+    }
+    .ghost-lbl {
+      font-family: var(--fm);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 3rem;
+    }
+    .ghost-list { list-style: none; }
+    .ghost-item {
+      display: flex;
+      align-items: baseline;
+      gap: 2rem;
+      padding: 1.1rem 0;
+      border-top: 1px solid var(--line);
+      cursor: default;
+    }
+    .ghost-item:last-child { border-bottom: 1px solid var(--line); }
+    .ghost-n {
+      font-family: var(--fm);
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      color: var(--ink-soft);
+      width: 2rem;
+      flex-shrink: 0;
+    }
+    .ghost-name {
+      font-family: var(--fd);
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
+      font-weight: 200;
+      line-height: 0.95;
+      letter-spacing: -0.025em;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--ink);
+      transition: color 0.3s, -webkit-text-stroke-color 0.3s;
+    }
+    .ghost-name em { font-style: italic; }
+    .ghost-count {
+      font-family: var(--fm);
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .ghost-item:hover .ghost-name { color: var(--ink); -webkit-text-stroke-color: transparent; }
+    .ghost-item:hover .ghost-count { opacity: 1; transform: none; }
+
+    /* ── QUOTE ──────────────────────────────────────────── */
+    .quote {
+      padding: 7rem 3rem;
+      background: var(--paper-deep);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .quote-lbl {
+      font-family: var(--fm);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      padding-top: 0.5rem;
+    }
+    .quote-text {
+      font-family: var(--fd);
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 200;
+      font-style: italic;
+      line-height: 1.2;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin-bottom: 1.75rem;
+    }
+    .quote-attr {
+      font-family: var(--fm);
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    /* ── CTA ────────────────────────────────────────────── */
+    .cta {
+      padding: 8rem 3rem;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 4rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .cta-lbl {
+      font-family: var(--fm);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      padding-top: 0.5rem;
+    }
+    .cta-hl {
+      font-family: var(--fd);
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      font-weight: 200;
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      margin-bottom: 3rem;
+    }
+    .cta-hl em { font-style: italic; }
+    .cta-hl .l2 { display: block; padding-left: 3rem; }
+    .cta-contacts {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      margin-bottom: 2rem;
+    }
+    .cta-link {
+      font-family: var(--fm);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 0.15rem;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .cta-link:hover { color: var(--ink-soft); border-color: var(--ink-soft); }
+    .cta-sep {
+      font-family: var(--fm);
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .cta-note {
+      font-family: var(--fm);
+      font-size: 0.62rem;
+      line-height: 1.85;
+      color: var(--ink-soft);
+      max-width: 420px;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      padding: 2.5rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: center;
+      gap: 2rem;
+    }
+    .f-logo {
+      font-family: var(--fd);
+      font-size: 1rem;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+    }
+    .f-logo em { font-style: italic; }
+    .f-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .f-links a {
+      font-family: var(--fm);
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      transition: color 0.2s;
+    }
+    .f-links a:hover { color: var(--ink); }
+    .f-copy {
+      font-family: var(--fm);
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      color: var(--ink-soft);
+      text-align: right;
+    }
+
+    /* ── CONTACT FORM ───────────────────────────────────── */
+    .enquire {
+      padding: 6rem 3rem;
+      background: var(--paper-deep);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .enquire-left {}
+    .enquire-lbl {
+      font-family: var(--fm);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 1.5rem;
+    }
+    .enquire-hl {
+      font-family: var(--fd);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 200;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .enquire-hl em { font-style: italic; }
+    .enquire-note {
+      font-family: var(--fm);
+      font-size: 0.62rem;
+      line-height: 1.85;
+      color: var(--ink-soft);
+      max-width: 340px;
+    }
+    .enquire-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form-field label {
+      font-family: var(--fm);
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      font-family: var(--fm);
+      font-size: 0.68rem;
+      color: var(--ink);
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--ink);
+      padding: 0.65rem 0;
+      outline: none;
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      transition: border-color 0.2s;
+    }
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus {
+      border-bottom-color: var(--aegean);
+    }
+    .form-field input::placeholder,
+    .form-field textarea::placeholder { color: var(--ink-soft); }
+    .form-field textarea {
+      resize: none;
+      height: 80px;
+      line-height: 1.7;
+    }
+    .form-field select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236A6660'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0 center;
+      padding-right: 1.25rem;
+    }
+    .form-submit {
+      font-family: var(--fm);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 1rem 2rem;
+      background: var(--ink);
+      color: var(--paper);
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: background 0.2s, color 0.2s;
+      margin-top: 0.5rem;
+    }
+    .form-submit:hover { background: var(--aegean); }
+    .form-success {
+      display: none;
+      font-family: var(--fm);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: var(--ink-soft);
+      padding: 1rem 0;
+      border-top: 1px solid var(--line);
+    }
+
+    /* ── MOBILE ─────────────────────────────────────────── */
+    @media (max-width: 860px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero-content { grid-template-columns: 1fr; padding: 0 1.5rem 3.5rem; }
+      .hero-right { display: none; }
+      .hero-scroll { display: none; }
+      .intro { grid-template-columns: 1fr; }
+      .intro-left { border-right: none; border-bottom: 1px solid var(--line); padding: 3rem 1.5rem; }
+      .intro-right { padding: 3rem 1.5rem; }
+      .villas-top { padding: 2rem 1.5rem 0; flex-direction: column; align-items: flex-start; }
+      .carousel-outer { padding: 2rem 1.5rem; }
+      .vcard { flex: 0 0 80vw; }
+      .quote, .cta { grid-template-columns: 1fr; gap: 1.5rem; padding: 4rem 1.5rem; }
+      .ghost-inner { padding: 0 1.5rem; }
+      .ghost-name { font-size: clamp(2rem, 10vw, 4rem); }
+      .enquire { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .f-links { justify-content: center; }
+      .f-copy { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">IKH <em>Villas</em></div>
+  <ul class="nav-links">
+    <li><a href="#villas">Villas</a></li>
+    <li><a href="#destinations">Destinations</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="https://wa.me/34600000000" class="nav-cta" target="_blank">WhatsApp Us</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-scrim"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <!-- REPLACE: IKH tag -->
+      <p class="hero-tag r">Exclusive Villas Experience — Ibiza & Formentera</p>
+      <h1 class="hero-hl r rd1">
+        Ibiza.
+        <span class="line2"><em>Formentera.</em></span>
+        <span class="line3">Yours.</span>
+      </h1>
+    </div>
+    <div class="hero-right r rd2">
+      <div class="hero-stats">
+        <!-- REPLACE: IKH real numbers -->
+        <div>
+          <div class="hero-stat-num">80+</div>
+          <div class="hero-stat-label">Properties</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">24/7</div>
+          <div class="hero-stat-label">Support</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">3</div>
+          <div class="hero-stat-label">Languages</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- INTRO -->
+<section class="intro" id="about">
+  <div class="intro-left">
+    <p class="intro-lbl r">— Exclusive Villas Experience</p>
+    <h2 class="intro-hl r rd1">
+      Private stays.<br><em>Perfectly</em><br>handled.
+    </h2>
+  </div>
+  <div class="intro-right">
+    <!-- REPLACE: IKH about copy -->
+    <p class="intro-body r rd1">
+      IKH Villas curates a private collection of luxury properties
+      across Ibiza and Formentera — each selected for its seclusion,
+      its character, and the quality of the experience it offers.<br><br>
+      Tailored stays, multilingual support, and a team available
+      around the clock from enquiry to departure.
+    </p>
+    <div class="intro-stats r rd2">
+      <!-- REPLACE: IKH real figures -->
+      <div class="intro-stat">
+        <div class="intro-stat-n">80+</div>
+        <div class="intro-stat-l">Villas</div>
+      </div>
+      <div class="intro-stat">
+        <div class="intro-stat-n">2</div>
+        <div class="intro-stat-l">Islands</div>
+      </div>
+      <div class="intro-stat">
+        <div class="intro-stat-n">24/7</div>
+        <div class="intro-stat-l">Support</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VILLAS -->
+<section class="villas" id="villas">
+  <div class="villas-top">
+    <h2 class="villas-hl r">Our <em>collection</em></h2>
+    <ul class="villa-tabs" role="tablist">
+      <!-- REPLACE: IKH actual categories -->
+      <li class="villa-tab active" data-tab="0" role="tab">Finca by the Sea</li>
+      <li class="villa-tab" data-tab="1" role="tab">Stunning Views</li>
+      <li class="villa-tab" data-tab="2" role="tab">Beautiful Pools</li>
+      <li class="villa-tab" data-tab="3" role="tab">Large Groups</li>
+    </ul>
+  </div>
+
+  <!-- TAB 0: Finca by the Sea -->
+  <div class="villa-panel active carousel-outer" data-panel="0">
+    <div class="carousel-track-wrap">
+      <div class="carousel-track" id="track-0">
+
+        <!-- REPLACE: IKH real villa photos, names, details, booking links -->
+        <div class="vcard r">
+          <div class="vcard-img">
+            <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80" alt="Villa Auriana" loading="lazy" width="800" height="600"/>
+            <span class="vcard-tag">Sea view</span>
+          </div>
+          <div class="vcard-body">
+            <p class="vcard-loc">Ibiza · Es Cubells</p>
+            <h3 class="vcard-name">Villa <em>Auriana</em></h3>
+            <p class="vcard-detail">5 bedrooms · 10 guests · Infinity pool · Direct sea access</p>
+          </div>
+          <div class="vcard-footer">
+            <div class="vcard-price">€3,800 <span>/ night</span></div>
+            <!-- REPLACE: real Booking.com or WhatsApp link -->
+            <a href="https://wa.me/34600000000" class="vcard-book" target="_blank">Book →</a>
+          </div>
+        </div>
+
+        <div class="vcard r rd1">
+          <div class="vcard-img">
+            <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&q=80" alt="Villa Beatrice" loading="lazy" width="800" height="600"/>
+          </div>
+          <div class="vcard-body">
+            <p class="vcard-loc">Ibiza · Santa Eulalia</p>
+            <h3 class="vcard-name">Villa <em>Beatrice</em></h3>
+            <p class="vcard-detail">4 bedrooms · 8 guests · Private pool · Beachfront</p>
+          </div>
+          <div class="vcard-footer">
+            <div class="vcard-price">€2,900 <span>/ night</span></div>
+            <a href="https://wa.me/34600000000" class="vcard-book" target="_blank">Book →</a>
+          </div>
+        </div>
+
+        <div class="vcard r rd2">
+          <div class="vcard-img">
+            <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80" alt="Villa Eloise" loading="lazy" width="800" height="600"/>
+            <span class="vcard-tag">New listing</span>
+          </div>
+          <div class="vcard-body">
+            <p class="vcard-loc">Formentera · La Mola</p>
+            <h3 class="vcard-name">Villa <em>Eloise</em></h3>
+            <p class="vcard-detail">6 bedrooms · 12 guests · Panoramic terrace · Chef available</p>
+          </div>
+          <div class="vcard-footer">
+            <div class="vcard-price">€4,500 <span>/ night</span></div>
+            <a href="https://wa.me/34600000000" class="vcard-book" target="_blank">Book →</a>
+          </div>
+        </div>
+
+        <div class="vcard r rd3">
+          <div class="vcard-img">
+            <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800&q=80" alt="Villa Cala" loading="lazy" width="800" height="600"/>
+          </div>
+          <div class="vcard-body">
+            <p class="vcard-loc">Ibiza · Cala Tarida</p>
+            <h3 class="vcard-name">Villa <em>Cala</em></h3>
+            <p class="vcard-detail">3 bedrooms · 6 guests · Cala steps away · Boat hire available</p>
+          </div>
+          <div class="vcard-footer">
+            <div class="vcard-price">€2,200 <span>/ night</span></div>
+            <a href="https://wa.me/34600000000" class="vcard-book" target="_blank">Book →</a>
+          </div>
+        </div>
+
+        <div class="vcard r">
+          <div class="vcard-img">
+            <img src="https://images.unsplash.com/photo-1601918774946-25832a4be0d6?w=800&q=80" alt="Villa Sol" loading="lazy" width="800" height="600"/>
+          </div>
+          <div class="vcard-body">
+            <p class="vcard-loc">Formentera · Es Pujols</p>
+            <h3 class="vcard-name">Villa <em>Sol</em></h3>
+            <p class="vcard-detail">5 bedrooms · 10 guests · Turquoise water views · Private dock</p>
+          </div>
+          <div class="vcard-footer">
+            <div class="vcard-price">€3,400 <span>/ night</span></div>
+            <a href="https://wa.me/34600000000" class="vcard-book" target="_blank">Book →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="carousel-arrows">
+      <button class="c-arrow prev-btn" data-track="0" disabled>←</button>
+      <button class="c-arrow next-btn" data-track="0">→</button>
+    </div>
+  </div>
+
+  <!-- TAB 1: Stunning Views -->
+  <div class="villa-panel carousel-outer" data-panel="1">
+    <div class="carousel-track-wrap">
+      <div class="carousel-track" id="track-1">
+        <div class="vcard r">
+          <div class="vcard-img">
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Villa Mirador" loading="lazy" width="800" height="600"/>
+            <span class="vcard-tag">Sea panorama</span>
+          </div>
+          <div class="vcard-body">
+            <p class="vcard-loc">Ibiza · Sant Josep</p>
+            <h3 class="vcard-name">Villa <em>Mirador</em></h3>
+            <p class="vcard-detail">7 bedrooms · 14 guests · 360° views · Infinity pool</p>
+          </div>
+          <div class="vcard-footer">
+            <div class="vcard-price">€5,200 <span>/ night</span></div>
+            <a href="https://wa.me/34600000000" class="vcard-book" target="_blank">Book →</a>
+          </div>
+        </div>
+        <div class="vcard r rd1">
+          <div class="vcard-img">
+            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80" alt="Villa Alta" loading="lazy" width="800" height="600"/>
+          </div>
+          <div class="vcard-body">
+            <p class="vcard-loc">Ibiza · Can Furnet</p>
+            <h3 class="vcard-name">Villa <em>Alta</em></h3>
+            <p class="vcard-detail">5 bedrooms · 10 guests · Hilltop · Sunset terrace</p>
+          </div>
+          <div class="vcard-footer">
+            <div class="vcard-price">€3,900 <span>/ night</span></div>
+            <a href="https://wa.me/34600000000" class="vcard-book" target="_blank">Book →</a>
+          </div>
+        </div>
+        <div class="vcard r rd2">
+          <div class="vcard-img">
+            <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80" alt="Villa Cielo" loading="lazy" width="800" height="600"/>
+          </div>
+          <div class="vcard-body">
+            <p class="vcard-loc">Formentera · Cap de Barbaria</p>
+            <h3 class="vcard-name">Villa <em>Cielo</em></h3>
+            <p class="vcard-detail">4 bedrooms · 8 guests · Lighthouse views · Secluded</p>
+          </div>
+          <div class="vcard-footer">
+            <div class="vcard-price">€2,800 <span>/ night</span></div>
+            <a href="https://wa.me/34600000000" class="vcard-book" target="_blank">Book →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-arrows">
+      <button class="c-arrow prev-btn" data-track="1" disabled>←</button>
+      <button class="c-arrow next-btn" data-track="1">→</button>
+    </div>
+  </div>
+
+  <!-- TAB 2: Beautiful Pools -->
+  <div class="villa-panel carousel-outer" data-panel="2">
+    <div class="carousel-track-wrap">
+      <div class="carousel-track" id="track-2">
+        <div class="vcard r">
+          <div class="vcard-img">
+            <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800&q=80" alt="Villa Piscina" loading="lazy" width="800" height="600"/>
+            <span class="vcard-tag">Heated pool</span>
+          </div>
+          <div class="vcard-body">
+            <p class="vcard-loc">Ibiza · San Rafael</p>
+            <h3 class="vcard-name">Villa <em>Piscina</em></h3>
+            <p class="vcard-detail">6 bedrooms · 12 guests · 25m heated pool · Pool house</p>
+          </div>
+          <div class="vcard-footer">
+            <div class="vcard-price">€4,100 <span>/ night</span></div>
+            <a href="https://wa.me/34600000000" class="vcard-book" target="_blank">Book →</a>
+          </div>
+        </div>
+        <div class="vcard r rd1">
+          <div class="vcard-img">
+            <img src="https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=800&q=80" alt="Villa Aqua" loading="lazy" width="800" height="600"/>
+          </div>
+          <div class="vcard-body">
+            <p class="vcard-loc">Ibiza · Santa Gertrudis</p>
+            <h3 class="vcard-name">Villa <em>Aqua</em></h3>
+            <p class="vcard-detail">4 bedrooms · 8 guests · Overflow pool · Private garden</p>
+          </div>
+          <div class="vcard-footer">
+            <div class="vcard-price">€2,600 <span>/ night</span></div>
+            <a href="https://wa.me/34600000000" class="vcard-book" target="_blank">Book →</a>
+          </div>
+        </div>
+        <div class="vcard r rd2">
+          <div class="vcard-img">
+            <img src="https://images.unsplash.com/photo-1527030280862-64139fba04ca?w=800&q=80" alt="Villa Palma" loading="lazy" width="800" height="600"/>
+          </div>
+          <div class="vcard-body">
+            <p class="vcard-loc">Formentera · Sant Francesc</p>
+            <h3 class="vcard-name">Villa <em>Palma</em></h3>
+            <p class="vcard-detail">5 bedrooms · 10 guests · Natural stone pool · Outdoor kitchen</p>
+          </div>
+          <div class="vcard-footer">
+            <div class="vcard-price">€3,300 <span>/ night</span></div>
+            <a href="https://wa.me/34600000000" class="vcard-book" target="_blank">Book →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-arrows">
+      <button class="c-arrow prev-btn" data-track="2" disabled>←</button>
+      <button class="c-arrow next-btn" data-track="2">→</button>
+    </div>
+  </div>
+
+  <!-- TAB 3: Large Groups -->
+  <div class="villa-panel carousel-outer" data-panel="3">
+    <div class="carousel-track-wrap">
+      <div class="carousel-track" id="track-3">
+        <div class="vcard r">
+          <div class="vcard-img">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Villa Grande" loading="lazy" width="800" height="600"/>
+            <span class="vcard-tag">Up to 20 guests</span>
+          </div>
+          <div class="vcard-body">
+            <p class="vcard-loc">Ibiza · Roca Llisa</p>
+            <h3 class="vcard-name">Villa <em>Grande</em></h3>
+            <p class="vcard-detail">10 bedrooms · 20 guests · Event terrace · Staff included</p>
+          </div>
+          <div class="vcard-footer">
+            <div class="vcard-price">€8,500 <span>/ night</span></div>
+            <a href="https://wa.me/34600000000" class="vcard-book" target="_blank">Book →</a>
+          </div>
+        </div>
+        <div class="vcard r rd1">
+          <div class="vcard-img">
+            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80" alt="Villa Familia" loading="lazy" width="800" height="600"/>
+          </div>
+          <div class="vcard-body">
+            <p class="vcard-loc">Ibiza · Jesus</p>
+            <h3 class="vcard-name">Villa <em>Familia</em></h3>
+            <p class="vcard-detail">8 bedrooms · 16 guests · Kids pool · Cinema room</p>
+          </div>
+          <div class="vcard-footer">
+            <div class="vcard-price">€6,200 <span>/ night</span></div>
+            <a href="https://wa.me/34600000000" class="vcard-book" target="_blank">Book →</a>
+          </div>
+        </div>
+        <div class="vcard r rd2">
+          <div class="vcard-img">
+            <img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800&q=80" alt="Villa Reunion" loading="lazy" width="800" height="600"/>
+          </div>
+          <div class="vcard-body">
+            <p class="vcard-loc">Formentera · La Savina</p>
+            <h3 class="vcard-name">Villa <em>Reunion</em></h3>
+            <p class="vcard-detail">9 bedrooms · 18 guests · Private beach · Boat included</p>
+          </div>
+          <div class="vcard-footer">
+            <div class="vcard-price">€7,800 <span>/ night</span></div>
+            <a href="https://wa.me/34600000000" class="vcard-book" target="_blank">Book →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-arrows">
+      <button class="c-arrow prev-btn" data-track="3" disabled>←</button>
+      <button class="c-arrow next-btn" data-track="3">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- ENQUIRE FORM -->
+<section class="enquire" id="enquire">
+  <div class="enquire-left">
+    <p class="enquire-lbl r">— Plan your stay</p>
+    <h2 class="enquire-hl r rd1">
+      Tell us what<br>you <em>need.</em>
+    </h2>
+    <p class="enquire-note r rd2">
+      Send us your dates and we'll come back within a few hours
+      with a curated shortlist. EN · IT · ES — whichever you prefer.
+    </p>
+  </div>
+  <div class="enquire-right r rd1">
+    <!-- REPLACE: swap action URL with real Formspree endpoint e.g. https://formspree.io/f/XXXXXXXX -->
+    <form class="enquire-form" action="https://formspree.io/f/REPLACE" method="POST" id="enquire-form">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="fname">First name *</label>
+          <input type="text" id="fname" name="first_name" placeholder="Maria" required />
+        </div>
+        <div class="form-field">
+          <label for="lname">Last name *</label>
+          <input type="text" id="lname" name="last_name" placeholder="Rossi" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" placeholder="maria@example.com" required />
+        </div>
+        <div class="form-field">
+          <label for="phone">Mobile</label>
+          <input type="tel" id="phone" name="phone" placeholder="+44 7700 900000" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="checkin">Check-in *</label>
+          <input type="date" id="checkin" name="checkin" required />
+        </div>
+        <div class="form-field">
+          <label for="checkout">Check-out *</label>
+          <input type="date" id="checkout" name="checkout" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="guests">Number of guests *</label>
+          <select id="guests" name="guests" required>
+            <option value="" disabled selected>Select</option>
+            <option>1–4</option>
+            <option>5–8</option>
+            <option>9–12</option>
+            <option>13–16</option>
+            <option>17+</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="budget">Budget per night</label>
+          <select id="budget" name="budget">
+            <option value="" disabled selected>Select</option>
+            <option>€1,000 – €2,500</option>
+            <option>€2,500 – €5,000</option>
+            <option>€5,000 – €10,000</option>
+            <option>€10,000+</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="message">Anything else?</label>
+        <textarea id="message" name="message" placeholder="Preferred location, special requirements, type of villa..."></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send enquiry →</button>
+      <p class="form-success" id="form-success">Thank you — we'll be in touch shortly.</p>
+    </form>
+  </div>
+</section>
+<section class="ghost idle" id="destinations">
+  <div class="ghost-bg gb1"></div>
+  <div class="ghost-bg gb2"></div>
+  <div class="ghost-scrim"></div>
+  <div class="ghost-inner">
+    <p class="ghost-lbl r">— Where we work</p>
+    <ul class="ghost-list">
+      <li class="ghost-item r rd1" data-gi="0">
+        <span class="ghost-n">01</span>
+        <span class="ghost-name"><em>Ibiza</em></span>
+        <span class="ghost-count">60+ villas</span>
+      </li>
+      <li class="ghost-item r rd2" data-gi="1">
+        <span class="ghost-n">02</span>
+        <span class="ghost-name">Forme<em>ntera</em></span>
+        <span class="ghost-count">20+ villas</span>
+      </li>
+
+    </ul>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote">
+  <p class="quote-lbl r">— Guest</p>
+  <div>
+    <!-- REPLACE: real IKH review -->
+    <p class="quote-text r">
+      "From the moment we arrived, every detail had been considered.
+      We didn't need to ask for anything twice."
+    </p>
+    <p class="quote-attr r rd1">— Private guest, Ibiza · Summer 2024</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <p class="cta-lbl r">— Enquire</p>
+  <div>
+    <h2 class="cta-hl r">
+      Your stay,
+      <span class="l2"><em>handled.</em></span>
+    </h2>
+    <div class="cta-contacts r rd1">
+      <!-- REPLACE: IKH real WhatsApp + email -->
+      <a href="https://wa.me/34600000000" class="cta-link" target="_blank">WhatsApp us</a>
+      <span class="cta-sep">or</span>
+      <a href="mailto:hello@ikhvillas.com" class="cta-link">hello@ikhvillas.com</a>
+    </div>
+    <p class="cta-note r rd2">
+      Send us your dates and number of guests via WhatsApp — EN · IT · ES.
+      We respond same day.
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">IKH <em>Villas</em></div>
+  <ul class="f-links">
+    <li><a href="#villas">Villas</a></li>
+    <li><a href="#destinations">Destinations</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <p class="f-copy">© 2025 IKH Villas · Exclusive Villas Experience</p>
+</footer>
+
+<script>
+  // ── Nav scroll ───────────────────────────────────────
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // ── Scroll reveals ───────────────────────────────────
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.r').forEach(el => io.observe(el));
+
+  // ── Villa tabs ───────────────────────────────────────
+  const tabs = document.querySelectorAll('.villa-tab');
+  const panels = document.querySelectorAll('.villa-panel');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const idx = tab.dataset.tab;
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelector(`[data-panel="${idx}"]`).classList.add('active');
+      // Reset carousel position
+      const track = document.getElementById(`track-${idx}`);
+      if (track) { track.style.transform = 'translateX(0)'; trackPositions[idx] = 0; }
+      updateArrows(idx);
+    });
+  });
+
+  // ── Carousel ─────────────────────────────────────────
+  const trackPositions = { 0: 0, 1: 0, 2: 0, 3: 0 };
+
+  function getCardWidth(trackEl) {
+    const card = trackEl.querySelector('.vcard');
+    if (!card) return 0;
+    return card.offsetWidth + 24; // gap: 1.5rem = 24px
+  }
+
+  function getVisibleCount() {
+    return window.innerWidth < 860 ? 1 : 3;
+  }
+
+  function updateArrows(idx) {
+    const track = document.getElementById(`track-${idx}`);
+    if (!track) return;
+    const panel = document.querySelector(`[data-panel="${idx}"]`);
+    const prevBtn = panel.querySelector('.prev-btn');
+    const nextBtn = panel.querySelector('.next-btn');
+    const cards = track.querySelectorAll('.vcard').length;
+    const visible = getVisibleCount();
+    const maxSteps = Math.max(0, cards - visible);
+    prevBtn.disabled = trackPositions[idx] <= 0;
+    nextBtn.disabled = trackPositions[idx] >= maxSteps;
+  }
+
+  document.querySelectorAll('.prev-btn, .next-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = btn.dataset.track;
+      const track = document.getElementById(`track-${idx}`);
+      const cardW = getCardWidth(track);
+      const cards = track.querySelectorAll('.vcard').length;
+      const visible = getVisibleCount();
+      const maxSteps = Math.max(0, cards - visible);
+
+      if (btn.classList.contains('next-btn')) {
+        if (trackPositions[idx] < maxSteps) trackPositions[idx]++;
+      } else {
+        if (trackPositions[idx] > 0) trackPositions[idx]--;
+      }
+
+      track.style.transform = `translateX(-${trackPositions[idx] * cardW}px)`;
+      updateArrows(idx);
+    });
+  });
+
+  // Initialise arrows
+  [0,1,2,3].forEach(i => updateArrows(i));
+
+  // ── Contact form async submit ─────────────────────────
+  const form = document.getElementById('enquire-form');
+  const success = document.getElementById('form-success');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('.form-submit');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.reset();
+          success.style.display = 'block';
+          btn.style.display = 'none';
+        } else {
+          btn.textContent = 'Something went wrong — try again';
+          btn.disabled = false;
+        }
+      } catch {
+        btn.textContent = 'Something went wrong — try again';
+        btn.disabled = false;
+      }
+    });
+  }
+  const ghostSection = document.querySelector('.ghost');
+  const ghostBgs = document.querySelectorAll('.ghost-bg');
+  document.querySelectorAll('.ghost-item').forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      const idx = parseInt(item.dataset.gi);
+      ghostSection.classList.remove('idle');
+      ghostBgs.forEach((bg, i) => bg.classList.toggle('on', i === idx));
+    });
+  });
+  ghostSection.addEventListener('mouseleave', () => {
+    ghostSection.classList.add('idle');
+    ghostBgs.forEach(bg => bg.classList.remove('on'));
+  });
+</script>
+</body>
+</html>
